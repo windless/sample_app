@@ -20,4 +20,10 @@ describe "StaticPages" do
     it { should have_selector('title', :text => 'About Us') }
     it { should have_selector('h1', :text => 'About Us') }
   end
+
+  describe "contact page" do
+    before { visit contact_path }
+    it { should have_selector('title', :text => 'Contact') }
+    it { should have_selector('h1', :text => 'Contact') }
+  end
 end
