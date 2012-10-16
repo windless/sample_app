@@ -9,11 +9,14 @@
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
 #  remember_token  :string(255)
+#  admin           :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
   has_secure_password
+
+  has_many :microposts, :dependent => :destroy
 
   validates :name, 
       :presence => true,
@@ -34,6 +37,10 @@ class User < ActiveRecord::Base
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
+
+  def feed
+    microposts
+  end
 
   private 
     def create_remember_token
