@@ -1,6 +1,9 @@
 SampleApp::Application.routes.draw do
   resources :users
-
+  resources :sessions, :only => [:new, :create, :destroy]
+  
+  match '/signin' => 'sessions#new'
+  match '/signout' => 'sessions#destroy'
   match '/signup' => 'users#new'
 
   match '/help' => 'static_pages#help'
